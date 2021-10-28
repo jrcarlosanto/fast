@@ -20,7 +20,7 @@ function ColaboradoresQueViram2WorkshopsSeguidos(){
                 for(var k = 0; k < coladoradoresProximoWorkshop.length; k++){
                     if(coladoradoresAnteriores[j]==coladoradoresProximoWorkshop[k]){ //comparar o nomes
                         for (var a =0; a < colaboradores2WorkshopsSeguidos.length; a++){
-                            if(colaboradores2WorkshopsSeguidos[a] == coladoradoresAnteriores[j]){
+                            if(colaboradores2WorkshopsSeguidos[a] == coladoradoresAnteriores[j]){ //colaborador já cadastrado
                                 jaCadastrado = true;
                                 break;
                             }
