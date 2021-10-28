@@ -3,36 +3,38 @@ var atasDosWorkshop = [];
 var colaboradores2WorkshopsSeguidos = [];
 var jaCadastrado;
 
-function adicionarPessoasWorkshop(){
+function ColaboradoresQueViram2WorkshopsSeguidos(){
 
     ataWorkshop = document.getElementById("imput").value;
 
     if (ataWorkshop != ""){
-        atasDosWorkshop.push(ataWorkshop);
-        ataWorkshop = "";
-        ColaboradoresQueViram2WorkshopsSeguidos();
-        var listaNomes = document.getElementById('lista');
-        listaNomes.innerHTML = colaboradores2WorkshopsSeguidos;
-    }
-console.log(colaboradores2WorkshopsSeguidos);
-}
-
-function ColaboradoresQueViram2WorkshopsSeguidos(){ 
-    
-    for (var i = 0; i < atasDosWorkshop.length; i++){
-        var coladoradores = atasDosWorkshop[i].split(" "); //separar os nomes dos colaboradores
-        if (atasDosWorkshop.length == i+1){
-            break;
-        }
-        var coladoradoresProximoWorkshop = atasDosWorkshop[i+1].split(" "); //separar os nomes dos colaboradores do workshop seguido
-        for(var j = 0; j < coladoradores.length; j++){
-            for(var k = 0; k < coladoradoresProximoWorkshop.length; k++){
-                if(coladoradores[j]==coladoradoresProximoWorkshop[k]){ //comparar o nomes
-                    if( colaboradores2WorkshopsSeguidos.length == 0 || !colaboradores2WorkshopsSeguidos.indexOf(coladoradores[j])){ //adicionar se o nome não exite
-                        colaboradores2WorkshopsSeguidos.push(coladoradores[j]);
-                    }                
+        atasDosWorkshop.push(ataWorkshop); //adicionar os colaboradores
+        document.getElementById('imput').value='';
+        if(atasDosWorkshop.length > 1){
+            
+            var i = atasDosWorkshop.length - 2;
+            var coladoradoresAnteriores = atasDosWorkshop[i].split(" "); //separar os nomes dos colaboradores do workshp anterior
+            var coladoradoresProximoWorkshop = atasDosWorkshop[i+1].split(" "); //separar os nomes dos colaboradores do workshop seguido
+            
+            for(var j = 0; j < coladoradoresAnteriores.length; j++){
+                for(var k = 0; k < coladoradoresProximoWorkshop.length; k++){
+                    if(coladoradoresAnteriores[j]==coladoradoresProximoWorkshop[k]){ //comparar o nomes
+                        for (var a =0; a < colaboradores2WorkshopsSeguidos.length; a++){
+                            if(colaboradores2WorkshopsSeguidos[a] == coladoradoresAnteriores[j]){
+                                jaCadastrado = true;
+                                break;
+                            }
+                                jaCadastrado = false;                     
+                        }
+                        if( (colaboradores2WorkshopsSeguidos.length == 0 || !jaCadastrado) && coladoradoresAnteriores[j]!=""){ //adicionar se o nome não exite
+                            colaboradores2WorkshopsSeguidos.push(coladoradoresAnteriores[j]);
+                        }                
+                    }
                 }
             }
         }
+            
+        var listaNomes = document.getElementById('lista'); 
+        listaNomes.innerHTML = colaboradores2WorkshopsSeguidos.sort();
     }
 }
